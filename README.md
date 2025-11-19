@@ -54,6 +54,7 @@ public static List<T> RemoveAfterElement<T>(List<T> list, T element)
 text
 Входные данные: [1, 2, 3, 2, 4, 5, 2, 6], E = 2
 Результат: [1, 2, 3, 2, 5, 2]
+```
 ЗАДАНИЕ 2: LINKEDLIST
 Описание задачи
 Определить, есть ли в списке L хотя бы один элемент, который равен следующему за ним (по кругу) элементу (первый элемент считать следующим для последнего).
@@ -70,7 +71,7 @@ text
 Если не найдены - вернуть false
 
 Код метода
-csharp
+```csharp
 public static bool HasEqualNeighborsCircular<T>(LinkedList<T> list)
 {
     var current = list.First;
@@ -87,6 +88,7 @@ public static bool HasEqualNeighborsCircular<T>(LinkedList<T> list)
 text
 Входные данные: [1, 2, 3, 4, 1]
 Результат: True (1 == 1 по кругу)
+```
 ЗАДАНИЕ 3: HASHSET
 Описание задачи
 Есть перечень стран, популярных у туристов. Определить для каждой страны, какие из них посетили все n туристов, какие — некоторые из туристов, и какие — никто из туристов.
@@ -101,7 +103,7 @@ text
 Определить категорию страны и вывести результат
 
 Код метода
-csharp
+```csharp
 public static void AnalyzeCountryVisits(HashSet<string> allCountries, 
                                       List<HashSet<string>> touristVisits)
 {
@@ -128,6 +130,7 @@ text
 Франция: посещена некоторыми туристами
 Италия: посещена всеми туристами  
 Испания: посещена некоторыми туристами
+```
 ЗАДАНИЕ 4: HASHSET С ТЕКСТОМ
 Описание задачи
 Файл содержит текст на русском языке. Напечатать в алфавитном порядке все глухие согласные буквы, которые не входят ровно в одно слово.
@@ -144,7 +147,7 @@ text
 Отсортировать и вывести результат
 
 Код метода
-csharp
+```csharp
 public static void PrintVoicelessConsonants(string filePath)
 {
     var voicelessConsonants = new HashSet<char> { 'п', 'ф', 'к', 'т', 'ш', 'с', 'х', 'ц', 'ч', 'щ' };
@@ -170,6 +173,7 @@ public static void PrintVoicelessConsonants(string filePath)
 text
 Текст: "пример текста для анализа согласных"
 Результат: к п с т х ш
+```
 ЗАДАНИЕ 5: DICTIONARY
 Описание задачи
 На вход программы подаются сведения о пассажирах, сдавших свой багаж в камеру хранения. Вывести список пассажиров, которые в ближайшие 2 часа должны освободить ячейки.
@@ -186,7 +190,7 @@ text
 Вывести результат
 
 Код метода
-csharp
+```csharp
 public static void PrintPassengersWithSoonExpiry(string currentTimeStr, List<Passenger> passengers)
 {
     var currentTime = TimeSpan.Parse(currentTimeStr);
@@ -202,6 +206,7 @@ public static void PrintPassengersWithSoonExpiry(string currentTimeStr, List<Pas
         Console.WriteLine($"{passenger.Name} - {passenger.ExpiryTime:hh\\:mm}");
     }
 }
+```
 Пример использования
 text
 Текущее время: 10:00
@@ -235,7 +240,7 @@ text
 Существование: a > 0 && b > 0
 
 Основной код класса
-csharp
+```csharp
 public class RightTriangle
 {
     private double _a;
@@ -278,12 +283,14 @@ public class RightTriangle
     public override string ToString() => 
         $"RightTriangle [a={_a:F2}, b={_b:F2}, площадь={CalculateArea():F2}]";
 }
+```
 Пример использования
-csharp
+```csharp
 var triangle = new RightTriangle(3.0, 4.0);
 Console.WriteLine(triangle); // RightTriangle [a=3.00, b=4.00, площадь=6.00]
 Console.WriteLine(triangle.CalculateArea()); // 6.00
 Console.WriteLine(triangle.CalculateHypotenuse()); // 5.00
+```
 ЗАДАНИЕ 7: ПЕРЕГРУЗКА ОПЕРАТОРОВ
 Описание задачи
 Добавить перегрузку операторов для класса RightTriangle:
@@ -307,7 +314,7 @@ implicit bool - существование треугольника
 >= - сравнение площадей
 
 Код перегрузки операторов
-csharp
+```csharp
 // Унарные операции
 public static RightTriangle operator ++(RightTriangle triangle)
 {
@@ -352,6 +359,7 @@ bool exists = triangle1;         // true
 // Сравнение
 bool lessOrEqual = triangle1 <= triangle2; // true
 bool greaterOrEqual = triangle1 >= triangle2; // false
+```
 ТЕСТИРОВАНИЕ
 Тесты для заданий 1-5:
 Тест 1:
