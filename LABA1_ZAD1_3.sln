@@ -1,25 +1,51 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LABA1_ZAD1_3", "LABA1_ZAD1_3\LABA1_ZAD1_3.csproj", "{CED2AF80-82EE-4771-A17A-1546068AE462}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CED2AF80-82EE-4771-A17A-1546068AE462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED2AF80-82EE-4771-A17A-1546068AE462}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED2AF80-82EE-4771-A17A-1546068AE462}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED2AF80-82EE-4771-A17A-1546068AE462}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EBBB3F37-26C5-46B5-841E-46576C47A1F2}
-	EndGlobalSection
-EndGlobal
+using System;
+
+class Program
+{
+    public static bool isUpperCase(char x)
+    {
+        return (x >= 'A' && x <= 'Z') || (x >= 'А' && x <= 'Я');
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("=== Проверка заглавной буквы ===");
+        Console.WriteLine("Для выхода введите 'exit'");
+        Console.WriteLine("----------------------------------------");
+
+        while (true)
+        {
+            Console.Write("\nВведите символ: ");
+            string? input = Console.ReadLine(); // Добавляем ? для nullable
+
+            if (input == null || input == "exit")
+            {
+                Console.WriteLine("Программа завершена.");
+                break;
+            }
+
+            if (input.Length == 1)
+            {
+                char symbol = input[0];
+                bool result = isUpperCase(symbol);
+
+                if (result)
+                {
+                    // Определяем язык буквы
+                    string language = (symbol >= 'A' && symbol <= 'Z') ? "английская" : "русская";
+                    Console.WriteLine($"Символ '{symbol}' - ЗАГЛАВНАЯ {language} буква ✓");
+                }
+                else
+                {
+                    Console.WriteLine($"Символ '{symbol}' - НЕ заглавная буква ✗");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ошибка: введите ровно один символ!");
+            }
+
+            Console.WriteLine("----------------------------------------");
+        }
+    }
+}
