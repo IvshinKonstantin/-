@@ -1,6 +1,4 @@
-// File: Program.cs
-// Главный файл программы с меню и интерфейсом пользователя
-using System;
+﻿using System;
 using System.Linq;
 
 namespace AutoParkSystem
@@ -13,10 +11,10 @@ namespace AutoParkSystem
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Система управления автопарком";
-            
+
             // Путь к файлу Excel
             string filePath = "LR5-var4.xlsx"; // Используйте .xlsx формат
-            
+
             // Проверка существования файла
             if (!File.Exists(filePath))
             {
@@ -26,7 +24,7 @@ namespace AutoParkSystem
                 Console.WriteLine("2. Если у вас файл .xls, откройте его в Excel и сохраните как .xlsx");
                 Console.WriteLine("3. Переименуйте файл в LR5-var4.xlsx");
                 Console.Write("\nВведите путь к файлу вручную (или нажмите Enter для выхода): ");
-                
+
                 filePath = Console.ReadLine();
                 if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 {
@@ -35,14 +33,14 @@ namespace AutoParkSystem
                     return;
                 }
             }
-            
+
             // Инициализация менеджера базы данных
             dbManager = new DatabaseManager(filePath);
-            
+
             // Загрузка данных
             Console.WriteLine("Загрузка данных из файла...");
             dbManager.LoadData();
-            
+
             if (!dbManager.IsDataLoaded())
             {
                 Console.WriteLine("\nНе удалось загрузить данные. Проверьте файл Excel.");
@@ -50,14 +48,14 @@ namespace AutoParkSystem
                 Console.ReadKey();
                 return;
             }
-            
+
             bool exit = false;
-            
+
             while (!exit)
             {
                 ShowMenu();
                 Console.Write("\nВыберите действие (1-6): ");
-                
+
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     switch (choice)
@@ -90,7 +88,7 @@ namespace AutoParkSystem
                 {
                     Console.WriteLine("Ошибка ввода! Введите число от 1 до 6.");
                 }
-                
+
                 if (!exit)
                 {
                     Console.WriteLine("\nНажмите любую клавишу для продолжения...");
@@ -123,7 +121,7 @@ namespace AutoParkSystem
             Console.WriteLine("3. Просмотреть все рейсы");
             Console.WriteLine("4. Просмотреть статистику");
             Console.Write("\nВыберите вариант (1-4): ");
-            
+
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 switch (choice)
@@ -152,23 +150,23 @@ namespace AutoParkSystem
             var cars = dbManager.GetCars();
             var drivers = dbManager.GetDrivers();
             var trips = dbManager.GetTrips();
-            
+
             Console.WriteLine("\n=== СТАТИСТИКА ===");
             Console.WriteLine($"Всего автомобилей: {cars.Count}");
             Console.WriteLine($"Всего водителей: {drivers.Count}");
             Console.WriteLine($"Всего рейсов: {trips.Count}");
-            
+
             // Статистика по автомобилям
             var carBrands = cars.GroupBy(c => c.Brand)
                                .Select(g => new { Brand = g.Key, Count = g.Count() })
                                .OrderByDescending(x => x.Count);
-            
+
             Console.WriteLine("\nАвтомобили по маркам:");
             foreach (var item in carBrands.Take(5))
             {
                 Console.WriteLine($"  {item.Brand}: {item.Count} авто");
             }
-            
+
             // Статистика по водителям
             var avgAge = drivers.Average(d => d.Age);
             var avgExp = drivers.Average(d => d.Experience);
@@ -184,7 +182,7 @@ namespace AutoParkSystem
             Console.WriteLine("2. Удалить водителя");
             Console.WriteLine("3. Удалить рейс");
             Console.Write("\nВыберите тип элемента (1-3): ");
-            
+
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 try
@@ -193,7 +191,7 @@ namespace AutoParkSystem
                     if (int.TryParse(Console.ReadLine(), out int id))
                     {
                         bool success = false;
-                        
+
                         switch (choice)
                         {
                             case 1:
@@ -230,7 +228,7 @@ namespace AutoParkSystem
             Console.WriteLine("2. Добавить водителя");
             Console.WriteLine("3. Добавить рейс");
             Console.Write("\nВыберите тип элемента (1-3): ");
-            
+
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 try
@@ -246,11 +244,11 @@ namespace AutoParkSystem
                             string model = Console.ReadLine();
                             Console.Write("Введите год выпуска: ");
                             int year = int.Parse(Console.ReadLine());
-                            
+
                             dbManager.AddCar(new Car(carId, brand, model, year));
                             Console.WriteLine("\nАвтомобиль успешно добавлен!");
                             break;
-                            
+
                         case 2:
                             Console.Write("\nВведите ID водителя: ");
                             int driverId = int.Parse(Console.ReadLine());
@@ -260,11 +258,11 @@ namespace AutoParkSystem
                             int age = int.Parse(Console.ReadLine());
                             Console.Write("Введите стаж: ");
                             int experience = int.Parse(Console.ReadLine());
-                            
+
                             dbManager.AddDriver(new Driver(driverId, name, age, experience));
                             Console.WriteLine("\nВодитель успешно добавлен!");
                             break;
-                            
+
                         case 3:
                             Console.Write("\nВведите ID рейса: ");
                             int tripId = int.Parse(Console.ReadLine());
@@ -278,7 +276,7 @@ namespace AutoParkSystem
                             DateTime endDate = DateTime.Parse(Console.ReadLine());
                             Console.Write("Введите маршрут: ");
                             string route = Console.ReadLine();
-                            
+
                             dbManager.AddTrip(new Trip(tripId, tripCarId, tripDriverId, startDate, endDate, route));
                             Console.WriteLine("\nРейс успешно добавлен!");
                             break;
@@ -305,7 +303,7 @@ namespace AutoParkSystem
             Console.WriteLine("4. Подсчитать рейсы водителей >40 лет на авто <10 лет");
             Console.WriteLine("5. Пример запроса из задания (Toyota после 2005)");
             Console.Write("\nВыберите запрос (1-5): ");
-            
+
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 try
@@ -322,7 +320,7 @@ namespace AutoParkSystem
                                 Console.WriteLine(car);
                             }
                             break;
-                            
+
                         case 2:
                             var tripsWithCars = dbManager.GetTripsWithCarInfo();
                             Console.WriteLine($"\nНайдено {tripsWithCars.Count} рейсов:");
@@ -337,7 +335,7 @@ namespace AutoParkSystem
                                 Console.WriteLine($"... и еще {tripsWithCars.Count - 20} рейсов");
                             }
                             break;
-                            
+
                         case 3:
                             var fullInfo = dbManager.GetFullTripInfo();
                             Console.WriteLine($"\nПолная информация о рейсах (первые 10):");
@@ -356,13 +354,13 @@ namespace AutoParkSystem
                                 Console.WriteLine($"... и еще {fullInfo.Count - 10} рейсов");
                             }
                             break;
-                            
+
                         case 4:
                             int count = dbManager.GetCountOfTripsByOlderDriversOnNewCars();
                             Console.WriteLine($"\nКоличество рейсов в 2023 году, выполненных водителями " +
                                             $"старше 40 лет на автомобилях моложе 10 лет: {count}");
                             break;
-                            
+
                         case 5:
                             int exampleCount = dbManager.GetExampleQueryCount();
                             Console.WriteLine($"\nПример запроса из задания:");
@@ -387,7 +385,7 @@ namespace AutoParkSystem
             Console.WriteLine("\nВнимание: Будет создан новый файл Excel со всеми данными.");
             Console.Write("\nВведите имя файла для сохранения (например: output.xlsx): ");
             string fileName = Console.ReadLine();
-            
+
             if (!string.IsNullOrWhiteSpace(fileName))
             {
                 // Добавляем расширение .xlsx, если его нет
@@ -395,7 +393,7 @@ namespace AutoParkSystem
                 {
                     fileName += ".xlsx";
                 }
-                
+
                 dbManager.SaveToExcel(fileName);
             }
             else
