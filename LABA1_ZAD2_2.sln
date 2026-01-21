@@ -1,25 +1,33 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LABA1_ZAD2_2", "LABA1_ZAD2_2\LABA1_ZAD2_2.csproj", "{C30380AC-C9F9-4E03-BC58-E7F55860E2E6}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C30380AC-C9F9-4E03-BC58-E7F55860E2E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C30380AC-C9F9-4E03-BC58-E7F55860E2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C30380AC-C9F9-4E03-BC58-E7F55860E2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C30380AC-C9F9-4E03-BC58-E7F55860E2E6}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EC5AB52F-F5F1-40CF-BCBD-CD0C1984C709}
-	EndGlobalSection
-EndGlobal
+using System;
+
+class Program
+{
+    public static string makeDecision(int x, int y)
+    {
+        if (x > y)
+        {
+            return $"{x} > {y}";
+        }
+        else if (x < y)
+        {
+            return $"{x} < {y}";
+        }
+        else
+        {
+            return $"{x} == {y}";
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        // Тестирование примеров из условия
+        Console.WriteLine($"x=5  y=7   -> {makeDecision(5, 7)}");
+        Console.WriteLine($"x=8  y=-1  -> {makeDecision(8, -1)}");
+        Console.WriteLine($"x=4  y=4   -> {makeDecision(4, 4)}");
+
+        // Дополнительные тесты
+        Console.WriteLine($"x=10 y=2   -> {makeDecision(10, 2)}");
+        Console.WriteLine($"x=-3 y=-3  -> {makeDecision(-3, -3)}");
+        Console.WriteLine($"x=0  y=5   -> {makeDecision(0, 5)}");
+    }
+}
