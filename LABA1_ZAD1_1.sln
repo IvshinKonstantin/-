@@ -1,25 +1,50 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{045DEBA2-9666-4546-890A-D9BCD64C2DC2}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{045DEBA2-9666-4546-890A-D9BCD64C2DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{045DEBA2-9666-4546-890A-D9BCD64C2DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{045DEBA2-9666-4546-890A-D9BCD64C2DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{045DEBA2-9666-4546-890A-D9BCD64C2DC2}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AB94F02B-D0CD-4024-AFB8-9180ED24E27A}
-	EndGlobalSection
-EndGlobal
+using System;
+
+class Program
+{
+    public static int sumLastNums(int x)
+    {
+        return (x % 10) + ((x / 10) % 10);
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("=== Сумма двух последних цифр числа ===");
+        Console.WriteLine("Введите числа для расчета (для выхода введите 'exit')");
+        Console.WriteLine("----------------------------------------");
+
+        while (true)
+        {
+            Console.Write("\nВведите число(Больше двух цифр в числе): ");
+            string input = Console.ReadLine();
+
+            if (input.ToLower() == "exit")
+            {
+                Console.WriteLine("Программа завершена.");
+                break;
+            }
+
+            if (int.TryParse(input, out int number))
+            {
+                if (Math.Abs(number) < 10)
+                {
+                    Console.WriteLine("Ошибка: число должно содержать минимум 2 цифры!");
+                }
+                else
+                {
+                    int lastDigit = Math.Abs(number) % 10;
+                    int secondLastDigit = (Math.Abs(number) / 10) % 10;
+                    int result = sumLastNums(Math.Abs(number));
+
+                    Console.WriteLine($"Результат: {secondLastDigit} + {lastDigit} = {result}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ошибка: введите корректное целое число!");
+            }
+
+            Console.WriteLine("----------------------------------------");
+        }
+    }
+}
